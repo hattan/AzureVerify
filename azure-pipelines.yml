@@ -20,7 +20,11 @@ steps:
       curl -fsSL https://git.io/shellspec | sh -s -- --yes
 
 
-- script: echo "Deploy"
+- script: |
+    terraform plan -out=plan.tfplan
+    terraform apply "plan.tfplan"
+    
+  workingDirectory: terraform
   displayName: 'Terraform Deploy'
 
 - task: AzureCLI@2
